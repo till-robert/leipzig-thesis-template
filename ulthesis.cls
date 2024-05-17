@@ -1,7 +1,7 @@
-\ProvidesClass{tudothesis}[2015/08/31 v0.9 wrapper to scrbook for thesis at TUDo]
-% Option for tu colors:
-\newif\if@tucolor\@tucolorfalse
-\DeclareOption{tucolor}{\@tucolortrue}
+\ProvidesClass{tudothesis}[2024/05/17 v0.1 wrapper to scrbook for thesis at Leipzig University]
+% Option for leipzig colors:
+\newif\if@ulcolor\@ulcolorfalse
+\DeclareOption{ulcolor}{\@ulcolortrue}
 
 % All other Options go to KOMA-Script
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{scrbook}}
@@ -20,23 +20,27 @@
 
 % Define our beloved tu colour:
 \RequirePackage{xcolor}
-\xdefinecolor{tugreen}{RGB}{132, 184, 25}
+\xdefinecolor{leipzigDarkRed}{RGB}{176,47,44}%
+\xdefinecolor{leipzigLightRed}{RGB}{214,66,66}%
+\xdefinecolor{leipzigLightBlue}{RGB}{138,194,209}%
+\xdefinecolor{leipzigLightGrey}{RGB}{201,201,201}%
+\xdefinecolor{leipzigDarkGrey}{RGB}{38,42,49}%
 
 \RequirePackage{caption}
 \RequirePackage{subcaption}
 
-% add some Color to structural elements if option tucolor was given
+% add some Color to structural elements if option ulcolor was given
 \RequirePackage{scrlayer-scrpage}
 \pagestyle{scrheadings}
 
 \KOMAoption{headsepline}{0.5pt}
-\if@tucolor%
-  \addtokomafont{title}{\color{tugreen}}          % title on titlepage
-  \addtokomafont{chapter}{\color{tugreen}}     % headlines of the chapters, sections etc. 
-  \setkomafont{headsepline}{\color{tugreen}}        % line between header and text body
-  \DeclareCaptionFont{tugreen}{\color{tugreen}}
+\if@ulcolor%
+  \addtokomafont{title}{\color{leipzigDarkRed}}          % title on titlepage
+  \addtokomafont{chapter}{\color{leipzigDarkRed}}     % headlines of the chapters, sections etc. 
+  \setkomafont{headsepline}{\color{leipzigDarkRed}}        % line between header and text body
+  \DeclareCaptionFont{leipzigDarkRed}{\color{leipzigDarkRed}}
   \captionsetup{%
-              labelfont={bf,tugreen},     % bold label in tu colour
+              labelfont={bf,leipzigDarkRed},     % bold label in tu colour
               format=plain,               % no indentation under the label
               width=0.9\textwidth,        % slightly smaller width than text
               font=small,                 % font slightly smaller than text
@@ -78,17 +82,17 @@
 \newcommand\secondcorrector[1]{\renewcommand\thesecondcorrector{#1}}
 
 % set title page elements
-\subject{Arbeit zur Erlangung des akademischen Grades\\ \thethesisclass}
-\publishers{\thechair \\ \thedivision \\ Technische Universität Dortmund}
+\subject{\thethesisclass}
+\publishers{\thechair \\ \thedivision \\ Leipzig University}
 
 % page for the correctors
 \newcommand{\makecorrectorpage}{%
   \thispagestyle{empty}
   \vspace*{\fill}
   \begin{tabular}{@{}l@{\hspace{2em}}l@{}}
-      Erstgutachter:  & \thefirstcorrector \\
-      Zweitgutachter: & \thesecondcorrector \\
-      Abgabedatum:    & \thesubmissiondate
+      Primary supervisor:  & \thefirstcorrector \\
+      Secondary supervisor: & \thesecondcorrector \\
+      Submission date:    & \thesubmissiondate
   \end{tabular}
   \newpage
 }
